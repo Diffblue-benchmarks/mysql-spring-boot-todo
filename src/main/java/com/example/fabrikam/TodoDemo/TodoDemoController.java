@@ -26,7 +26,7 @@ public class TodoDemoController {
 
     @RequestMapping("/add")
     public String addTodo(@ModelAttribute TodoItem requestItem) {
-        TodoItem item = new TodoItem(requestItem.getCategory(), requestItem.getName());
+        TodoItem item = new TodoItem(requestItem.getName());
         repository.save(item);
         return "redirect:/";
     }
@@ -34,11 +34,12 @@ public class TodoDemoController {
     @RequestMapping("/update")
     public String updateTodo(@ModelAttribute TodoListViewModel requestItems) {
         for (TodoItem requestItem : requestItems.getTodoList() ) {
-             TodoItem item = new TodoItem(requestItem.getCategory(), requestItem.getName());
+             TodoItem item = new TodoItem(requestItem.getName());
              item.setComplete(requestItem.isComplete());
              item.setId(requestItem.getId());
              repository.save(item);
         }
         return "redirect:/";
     }
+
 }

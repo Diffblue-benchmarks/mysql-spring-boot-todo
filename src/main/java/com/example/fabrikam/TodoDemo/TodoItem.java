@@ -15,10 +15,12 @@ public class TodoItem {
     private String name;
     private boolean complete;
 
-    public TodoItem() {}
+    public TodoItem() {
+        this.name = name;
+        this.complete = false;
+    }
 
-    public TodoItem(String category, String name) {
-        this.category = category;
+    public TodoItem(String name) {
         this.name = name;
         this.complete = false;
     }
@@ -27,7 +29,7 @@ public class TodoItem {
     public String toString() {
         return String.format(
                 "TodoItem[id=%d, category='%s', name='%s', complete='%b']",
-                id, category, name, complete);
+                id, name, complete);
     }
 
     public String getName() {
@@ -39,16 +41,7 @@ public class TodoItem {
         return;
     }
 
-    public String getCategory() {
-        return category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
-        return;
-    }
-
-     public Long getId() {
+    public Long getId() {
         return id;
     }
 
@@ -65,4 +58,6 @@ public class TodoItem {
         this.complete = complete;
         return;
     }
+
+
 }
