@@ -11,12 +11,12 @@ public class TodoItem {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
-    private String category;
     private String name;
     private boolean complete;
 
     public TodoItem() {
         this.name = name;
+        this.id = id;
         this.complete = false;
     }
 

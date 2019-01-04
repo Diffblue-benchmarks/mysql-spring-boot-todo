@@ -13,13 +13,13 @@ import java.util.ArrayList;
 public class TodoDemoController {
 
     @Autowired
-    private TodoItemRepository repository;
+    TodoItemRepository repository;
 
     @RequestMapping("/")
     public String index(Model model) {
         ArrayList<TodoItem> todoList = (ArrayList<TodoItem>) repository.findAll();
         //model.addAttribute("items", todoList);
-        model.addAttribute("newitem", new TodoItem());
+        model.addAttribute("newitem", new TodoItem(null));
         model.addAttribute("items", new TodoListViewModel(todoList));
         return "index";
     }
