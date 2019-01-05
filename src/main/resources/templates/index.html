@@ -30,15 +30,21 @@
       <table class="table table-bordered table-striped" id="todoItems">
         <thead>
           <tr>
-            <th>Name</th>
-            <th>Complete</th>
+              <th>Name</th>
+              <th>id</th>
+              <th>Complete</th>
+              <th>Delete</th>
           </tr>
         </thead>
         <tbody>
             <tr th:each="item,i : *{todoList}" th:class="${item.complete}? active : warning" >
                 <input type="hidden" th:field="*{todoList[__${i.index}__].id}"/>
                 <td th:text="${item.name}">Item_name</td><input type="hidden" th:field="*{todoList[__${i.index}__].name}"/>
+                <td th:text="${item.id}">Item_name</td><input type="hidden" th:field="*{todoList[__${i.index}__].id}"/>
                 <td><input type="checkbox" th:checked="${item.complete} == true" th:field="*{todoList[__${i.index}__].complete}"/></td>
+                <form class="form-horizontal" role="form" th:action="@{/delete/{id}(id=${item.id})}" th:object="${item}" method="POST">
+                     <td><button type="submit" class="btn btn-primary">Delete</button></td>
+                </form>
             </tr>
         </tbody>
       </table>

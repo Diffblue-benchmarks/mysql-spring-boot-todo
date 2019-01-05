@@ -27,9 +27,7 @@ public class TodoItem {
 
     @Override
     public String toString() {
-        return String.format(
-                "TodoItem[id=%d, category='%s', name='%s', complete='%b']",
-                id, name, complete);
+        return "[ name=" + this.name + ", complete=" + this.complete + " ]";
     }
 
     public String getName() {

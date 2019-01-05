@@ -3,6 +3,7 @@ package com.example.fabrikam.TodoDemo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -13,7 +14,7 @@ import java.util.ArrayList;
 public class TodoDemoController {
 
     @Autowired
-    TodoItemRepository repository;
+    private TodoItemRepository repository;
 
     @RequestMapping("/")
     public String index(Model model) {
@@ -26,6 +27,7 @@ public class TodoDemoController {
 
     @RequestMapping("/add")
     public String addTodo(@ModelAttribute TodoItem requestItem) {
+        System.out.print(requestItem.toString());
         TodoItem item = new TodoItem(requestItem.getName());
         repository.save(item);
         return "redirect:/";
@@ -42,4 +44,9 @@ public class TodoDemoController {
         return "redirect:/";
     }
 
+    @RequestMapping("/delete/{id}")
+    public String deleteTodo(@PathVariable("id") long itemId) {
+        repository.delete(itemId);
+        return "redirect:/";
+    }
 }
