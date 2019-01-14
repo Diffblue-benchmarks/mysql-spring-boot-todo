@@ -49,8 +49,15 @@ public class TodoDemoController {
     @RequestMapping("/delete/{id}")
     public String deleteTodo(@PathVariable("id") long itemId) {
         boolean item = repository.exists(itemId);
+        if (item == true) {
+            repository.delete(itemId);
+        }
+        else {
+            throw new IllegalArgumentException("Unable to perform deletion using an ID: " + itemId);
+        }
         return "redirect:/";
     }
+
 
 
 }
