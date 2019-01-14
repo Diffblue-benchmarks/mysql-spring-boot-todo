@@ -46,4 +46,11 @@ public class TodoDemoController {
         return "redirect:/";
     }
 
+    @RequestMapping("/delete/{id}")
+    public String deleteTodo(@PathVariable("id") long itemId) {
+        boolean item = repository.exists(itemId);
+        return "redirect:/";
+    }
+
+
 }
