@@ -10,26 +10,37 @@ public class TodoItem {
 
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
-    private Long id;
-    private String category;
+    private long id;
     private String name;
     private boolean complete;
 
     public TodoItem() {
         this.name = name;
-        this.complete = false;
+        this.id = id;
+    }
+
+    public TodoItem(long id) {
+        this.id = id;
     }
 
     public TodoItem(String name) {
         this.name = name;
-        this.complete = false;
+    }
+
+    public TodoItem(String name, long id) {
+        this.name = name;
+        this.id = id;
+    }
+
+    public TodoItem(String name, long id, boolean complete) {
+        this.name = name;
+        this.id = id;
+        this.complete = complete;
     }
 
     @Override
     public String toString() {
-        return String.format(
-                "TodoItem[id=%d, category='%s', name='%s', complete='%b']",
-                id, name, complete);
+        return "[ name=" + this.name + ", complete=" + this.complete + " ]";
     }
 
     public String getName() {
@@ -45,9 +56,8 @@ public class TodoItem {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
-        return;
     }
 
     public boolean isComplete() {

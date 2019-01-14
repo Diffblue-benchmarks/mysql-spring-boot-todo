@@ -3,6 +3,7 @@ package com.example.fabrikam.TodoDemo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -13,19 +14,22 @@ import java.util.ArrayList;
 public class TodoDemoController {
 
     @Autowired
-    private TodoItemRepository repository;
+    TodoItemRepository repository;
 
     @RequestMapping("/")
     public String index(Model model) {
         ArrayList<TodoItem> todoList = (ArrayList<TodoItem>) repository.findAll();
-        //model.addAttribute("items", todoList);
-        model.addAttribute("newitem", new TodoItem());
+        model.addAttribute("items", todoList);
+        model.addAttribute("newitem", new TodoItem(null));
         model.addAttribute("items", new TodoListViewModel(todoList));
         return "index";
     }
 
     @RequestMapping("/add")
     public String addTodo(@ModelAttribute TodoItem requestItem) {
+        if (requestItem.getName().isEmpty()) {
+            throw new IllegalArgumentException("You must name the task");
+        }
         TodoItem item = new TodoItem(requestItem.getName());
         repository.save(item);
         return "redirect:/";
